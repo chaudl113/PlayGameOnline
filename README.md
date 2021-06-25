@@ -1,5 +1,5 @@
 # Web play game online
-# TypeScript + Express + ejs + Node.js Starter with bulma.io
+# TypeScript + Express + ejs + Node.js 
 
 TypeScript Express ejs template starter using Microsoft's TypeScript-Node-Starter.
 
