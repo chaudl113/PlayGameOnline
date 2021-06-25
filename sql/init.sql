@@ -1,0 +1,16 @@
+CREATE DATABASE IF NOT EXISTS webgame;
+
+CREATE USER IF NOT EXISTS 'root'@'localhost' IDENTIFIED BY 'q123@#';
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'q123@#';
+
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'q123@#';
+
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'q123@#';
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;
+

@@ -1,0 +1,72 @@
+<div class="main-card mb-3 card">
+    <div class="card-body">
+        <% if (message && message.length >0) { %>
+        <div class="alert alert-info" role="alert">
+            <%= message[0] %>
+        </div>
+        <% } %>
+        <button onclick="window.location.href='product/add'" class="mb-2 mr-2 btn-icon btn btn-info"><i
+                class="pe-7s-plus btn-icon-wrapper"> </i>Add</button>
+        <% if (data) { %>
+        <table  id="example" class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>IOS</th>
+                    <th>APK</th>
+                    <th>Url</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i<data.length; i++){ %>
+
+                <tr>
+
+                    <td><%= data[i].name %></td>
+                    <td><%= data[i].price %></td>
+                    <td><%= data[i].description %></td>
+                    <td> <img style="max-width:200px; max-height:auto;" src="<%= data[i].image %>" alt=""> </td>
+                    <td><a href="<%= data[i].ios %>"><%= data[i].ios %></a></td>
+                    <td><a href="<%= data[i].apk %>"><%= data[i].apk %></a></td>
+                    <td><%= data[i].url %></td>
+                    <td><%= data[i].category %></td>
+
+                    <td class="text-center text-justify"> <button
+                            onclick="window.location.href='product/<%= data[i].id %>/edit'"
+                            class=" btn-icon btn btn-primary  "><i
+                                class="pe-7s-edit btn-icon-wrapper ">
+                            </i>Edit</button>
+
+                        <button onclick="window.location.href='product/<%= data[i].id %>/delete'"
+                            class=" btn-icon btn btn-danger "><i class="pe-7s-delete-user btn-icon-wrapper">
+                            </i>Delete</button></td>
+
+                </tr>
+                <% } %>
+
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Category</th>
+                    <th>IOS</th>
+                    <th>APK</th>
+                    <th>Url</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
+        </table>
+        <% } else { %>
+        <h5>no products</h5>
+        <% } %>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+version: '3' 
+
+networks:
+  webnet:
+    driver: bridge
+
+services:
+  redis:
+    image: redis
+    networks:
+      - webnet
+  db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    networks:
+      - webnet
+    environment:
+      MYSQL_ROOT_PASSWORD: q123@#
+    volumes:
+      - ./dbbackup:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+  web:
+    image: registry.gitlab.com/chaudl113/webgameonlinenodejs
+    ports:
+      - '8010:8010'
+      - '8000:8000'
+    depends_on:
+      - db
+    command: sh -c "echo 'chay server' && sleep 30  && node dist/server.js"
+    networks:
+      - webnet
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+    volumes:
+      - ./game:/app/game
+      - ./dist/public/images:/app/dist/public/images
+      - ./public:/app/public
+  
+networks:
+  webnet:

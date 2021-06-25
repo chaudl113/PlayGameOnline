@@ -1,0 +1,84 @@
+<div class="app-main__inner">
+
+
+
+    <div class="tab-content">
+        <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Controls Types</h5>
+                            <!-- <form class="" method="post" action="/product" enctype="multipart/form-data"> -->
+                            <form id="productForm" class="col-md-10 mx-auto" method="POST"
+                                action="/product/<%= id %>/edit" novalidate="novalidate"
+                                enctype="application/x-www-form-urlencoded">
+                                <% if (error && error.length>0) { %>
+                                    <div class="alert alert-primary" role="alert">
+                                        <%= error[0] %>
+                                    </div>
+                                    <% } %>
+                                        <div class="position-relative form-group">
+                                            <label for="exampleGameName" class="">Game Name</label>
+                                            <input name="exampleGameName" id="exampleGameName"
+                                                value="<%= resultId.name %>" placeholder="with a placeholder"
+                                                type="text" class="form-control">
+
+                                        </div>
+                                        <div class="position-relative form-group">
+                                            <label for="price" class="">Price</label>
+                                            <input name="price" id="price" value="<%= resultId.price %>"
+                                                placeholder="price placeholder" type="number" class="form-control">
+                                        </div>
+
+                                        <div class="position-relative form-group">
+                                            <label for="ios" class="">App Store</label>
+                                            <input name="ios" id="ios" value="<%= resultId.ios %>" placeholder="with a placeholder"
+                                            type="text" class="form-control">
+                                        </div>
+                                     
+                                        <div class="position-relative form-group">
+                                            <label for="apk" class="">Ch Play</label>
+                                            <input name="apk" id="apk" value="<%= resultId.apk %>" placeholder="with a placeholder"
+                                            type="text" class="form-control">
+                                        </div>
+
+
+                                        <div class="position-relative form-group">
+                                            <label for="exampleDescription" class="">Description</label>
+                                            <textarea name="exampleDescription" id="exampleDescription"
+                                                class="form-control"><%= resultId.description %></textarea>
+                                        </div>
+                                        <% if (data.length>0 ) { %>
+                                            <div class="position-relative form-group">
+                                                <label for="select" class="">Select</label>
+
+                                                <select name="select" id="select" class="form-control required">
+
+                                                    <% for ( var i=0; i < data.length; i++ ) { var selected=(
+                                                        resultId.category==data[i].name ) ? "selected" : "" ; %>
+                                                        <option value="<%=data[ i ].name %>" <%=selected %>><%=data[ i
+                                                                ].name %>
+                                                        </option>
+                                                        <% } %>
+                                                </select>
+                                            </div>
+                                            <% } %>
+
+
+
+                                                <button class="mt-1 btn btn-primary float-right" type="submit"
+                                                    name="Submit" value="Submit">Submit</button>
+                                                <a href='/product' class="mt-1 btn btn-light "><i>
+                                                    </i>
+                                                    Exit</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

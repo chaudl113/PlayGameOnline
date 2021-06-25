@@ -1,0 +1,113 @@
+<% include ../web/core %>
+
+<body class="home page-template-default page page-id-42 wpb-js-composer js-comp-ver-6.1 vc_responsive">
+    <% include ../web/header %>
+    <main><%- body %></main>
+    <% include ../web/footer %>
+
+
+
+    <!-- <scrip type="text/javascript" src="js/lib/jquery-3.1.1.min.js"></scrip> -->
+    <scrip type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></scrip>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <!-- <script  type="text/javascript" src="js/product.js"></script> -->
+    <script type="text/javascript" src="assets/scripts/main.js"></script>
+</body>
+
+<script type='text/javascript' src='wp-content/plugins/contact-form-7/includes/js/scriptsbb49.js?ver=5.2.2'
+    id='contact-form-7-js'></script>
+<script type='text/javascript' src='wp-content/themes/cavalier/assets/js/bootstrap.mind03b.js?ver=5.5.1'
+    id='bootstrap-js'></script>
+<script type='text/javascript' src='wp-content/themes/cavalier/assets/js/owl.carousel.mind03b.js?ver=5.5.1'
+    id='carousel-js'></script>
+<script type='text/javascript'
+    src='wp-content/plugins/js_composer/assets/lib/bower/isotope/dist/isotope.pkgd.min9b2d.js?ver=6.1'
+    id='isotope-js'></script>
+<script type='text/javascript' src='wp-content/themes/cavalier/assets/js/magnific.mind03b.js?ver=5.5.1'
+    id='magnific-js'></script>
+<script type='text/javascript' src='wp-content/themes/cavalier/assets/js/venobox.mind03b.js?ver=5.5.1'
+    id='venobox-js'></script>
+<script type='text/javascript' src='wp-content/themes/cavalier/assets/js/jquery.meanmenud03b.js?ver=5.5.1'
+    id='jquery-meanmenu-js'></script>
+<script type='text/javascript' src='wp-content/themes/cavalier/assets/js/pluginsd03b.js?ver=5.5.1'
+    id='plugins-js'></script>
+<script type='text/javascript' src='wp-content/themes/cavalier/assets/js/maind03b.js?ver=5.5.1'
+    id='cavalier-main-script-js'></script>
+<script type='text/javascript' src='wp-includes/js/wp-embed.mind03b.js?ver=5.5.1' id='wp-embed-js'></script>
+<script type='text/javascript' src='wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min9b2d.js?ver=6.1'
+    id='wpb_composer_front_js-js'></script>
+<script>window.lazyLoadOptions = {
+        elements_selector: "img[data-lazy-src],.rocket-lazyload",
+        data_src: "lazy-src",
+        data_srcset: "lazy-srcset",
+        data_sizes: "lazy-sizes",
+        class_loading: "lazyloading",
+        class_loaded: "lazyloaded",
+        threshold: 300,
+        callback_loaded: function (element) {
+            if (element.tagName === "IFRAME" && element.dataset.rocketLazyload == "fitvidscompatible") {
+                if (element.classList.contains("lazyloaded")) {
+                    if (typeof window.jQuery != "undefined") {
+                        if (jQuery.fn.fitVids) {
+                            jQuery(element).parent().fitVids();
+                        }
+                    }
+                }
+            }
+        }
+    };
+    window.addEventListener('LazyLoad::Initialized', function (e) {
+        var lazyLoadInstance = e.detail.instance;
+
+        if (window.MutationObserver) {
+            var observer = new MutationObserver(function (mutations) {
+                var image_count = 0;
+                var iframe_count = 0;
+                var rocketlazy_count = 0;
+
+                mutations.forEach(function (mutation) {
+                    for (i = 0; i < mutation.addedNodes.length; i++) {
+                        if (typeof mutation.addedNodes[i].getElementsByTagName !== 'function') {
+                            return;
+                        }
+
+                        if (typeof mutation.addedNodes[i].getElementsByClassName !== 'function') {
+                            return;
+                        }
+
+                        images = mutation.addedNodes[i].getElementsByTagName('img');
+                        is_image = mutation.addedNodes[i].tagName == "IMG";
+                        iframes = mutation.addedNodes[i].getElementsByTagName('iframe');
+                        is_iframe = mutation.addedNodes[i].tagName == "IFRAME";
+                        rocket_lazy = mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');
+
+                        image_count += images.length;
+                        iframe_count += iframes.length;
+                        rocketlazy_count += rocket_lazy.length;
+
+                        if (is_image) {
+                            image_count += 1;
+                        }
+
+                        if (is_iframe) {
+                            iframe_count += 1;
+                        }
+                    }
+                });
+
+                if (image_count > 0 || iframe_count > 0 || rocketlazy_count > 0) {
+                    lazyLoadInstance.update();
+                }
+            });
+
+            var b = document.getElementsByTagName("body")[0];
+            var config = { childList: true, subtree: true };
+
+            observer.observe(b, config);
+        }
+    }, false);
+</script>
+<script data-no-minify="1" async src="wp-content/plugins/rocket-lazy-load/assets/js/16.1/lazyload.min.js"></script>
+    
+
+</html>

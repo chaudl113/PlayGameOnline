@@ -1,0 +1,97 @@
+<% include ../admin/core %>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <% include ../admin/navigation %>
+        <div class="app-main">
+            <% include ../admin/siderbar %>
+            <div class="app-main__outer">
+                <main><%- body %></main>
+                <% include ../admin/footer %>
+
+            </div>
+        </div>
+    </div>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <!-- <script  type="text/javascript" src="js/product.js"></script> -->
+    <script type="text/javascript" src="assets/scripts/main.js"></script>
+</body>
+
+
+<!-- Mirrored from demo.dashboardpack.com/architectui-html-pro/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 06 Nov 2020 13:48:16 GMT -->
+
+</html>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-body">
+                        <h5 class="card-title">Controls Types</h5>
+                        <form id="productCategory">
+                            <!-- <form id="productCategory" class="col-md-10 mx-auto" method="post" action="/products-types"
+                            novalidate="novalidate" enctype="multipart/form-data"> -->
+                            <div class="position-relative form-group">
+                                <label for="name" class="">Category</label>
+                                <input name="name" id="name" placeholder="with a placeholder" type="text"
+                                    class="form-control">
+
+                            </div>
+
+                            <button class="mt-1 btn btn-primary float-right" type="submit" name="Submit"
+                                value="Submit">Submit</button>
+                            <a href='/products-types' class="mt-1 btn btn-light "><i>
+                                </i>
+                                Exit</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>$(function () {
+
+
+        $('#productCategory').on('submit', function (e) {
+            e.preventDefault()
+        }).validate({
+            rules: { name: "required", },
+            messages: {
+                name: "Please enter your name",
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass("invalid-feedback").addClass("mb-n5").addClass("text-danger").addClass("text-bold");
+                error.insertAfter(element);
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: "/products-types", //this is the submit URL
+                    type: 'POST', //or POST
+                    data: { productCategory: $("#name").val() },
+                    success: function (data) {
+                        if (data.status == 200) {
+                            // $('#productCategory').modal('toggle');
+                            location.reload();
+
+                        }
+                        if (data.status == 201) {
+                            alert(data.error)
+
+                        }
+
+                    }
+
+                });
+
+
+            }
+
+        });
+    });</script>

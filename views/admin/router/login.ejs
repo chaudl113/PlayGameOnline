@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+
+<!-- Mirrored from demo.dashboardpack.com/architectui-html-pro/pages-login-boxed.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 06 Nov 2020 13:49:35 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Login Admin</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="ArchitectUI HTML Bootstrap 4 Dashboard Template">
+
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <link href="main.d810cf0ae7f39f28f336.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+
+</head>
+
+
+
+<body style="overflow: hidden;">
+    <div class="app-container app-theme-white body-tabs-shadow">
+        <div class="app-container">
+
+            <div class="h-100 bg-plum-plate bg-animation">
+
+                <div class="d-flex h-100 justify-content-center align-items-center">
+
+                    <div class="mx-auto app-login-box col-md-8">
+                        <% if (errorsLogin && errorsLogin.length >0) { %>
+                        <div class="alert alert-primary" role="alert">
+                            <%= errorsLogin[0] %>
+                        </div>
+                        <% } %>
+
+                        <div class="modal-dialog w-100 mx-auto">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="h5 modal-title text-center">
+                                        <h4 class="mt-2">
+                                            <div>Chào mừng trở lại</div>
+                                            <span>Vui lòng đăng nhập vào tài khoản của bạn bên dưới.</span>
+                                        </h4>
+                                    </div>
+                                    <form id="login" method="POST" action="/login"
+                                        enctype="application/x-www-form-urlencoded">
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <div class="position-relative form-group">
+                                                    <input name="email" id="exampleEmail" placeholder="Email here..."
+                                                        type="email" class="form-control" required="">
+                                                    <div class="valid-feedback">Success!.</div>
+                                                    <div class="invalid-feedback">No, you missed this one.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="position-relative form-group">
+                                                    <input name="password" id="examplePassword"
+                                                        placeholder="Password here..." type="password"
+                                                        class="form-control" required="">
+                                                    <div class="valid-feedback">Nice!</div>
+                                                    <div class="invalid-feedback">Sorry, you missed this one.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="modal-footer clearfix">
+
+                                            <div class="float-right">
+                                                <button id="btnLogin" type="submit" class="btn btn-primary btn-lg">
+                                                    Đăng nhập </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/lib/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/main.d810cf0ae7f39f28f336.js"></script>
+
+</body>
+<script>
+    $('#btnLogin').click(function (e) {
+        let user = {}
+        user.email = $("#exampleEmail").val()
+        user.password = $("#examplePassword").val()
+        var form = $("#login")
+        if (form[0].checkValidity() === false) {
+            event.preventDefault()
+            event.stopPropagation()
+
+
+        }
+
+        form.addClass('was-validated');
+
+
+
+    })
+
+
+</script>
+
+</html>

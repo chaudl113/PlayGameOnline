@@ -1,0 +1,79 @@
+<section class="pt-120 pb-120 ">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="section-header has--bg mb-5">
+          <div class="header-image justify-content-start"><img
+              src="http://pixner.net/ophela/demo/assets/images/elements/header-el-7.png" alt="image">
+          </div>
+          <h2 class="section-title">
+            <%= data.name %>
+          </h2>
+        </div>
+        <p class="mt-3">
+          <%= data.category %>
+        </p>
+        <h3 class="text-uppercase mt-3">
+          <%= data.description %>
+        </h3>
+        <!-- <p class="mt-4">Tương thích với</p> -->
+        <div class="game-compatible mt-3 mt-50">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4 p-0">
+                <a href="<%= data.ios %>"> <img src="images/apple-btn.png" alt="image"></a>
+              </div>
+              <div class="col-md-4 p-0">
+                <a href="<%= data.apk %>"><img src="images/google-btn.png" alt="image"></a>
+              </div>
+              <div class="col-md-4 p-0 playnow">
+                <a class="playnow" href="<%= data.url %>"><img
+                    src="../../wp-content/themes/cavalier/assets/images/icon/playnow.png" alt="image"></a>
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+        </div><!-- game-compatible end -->
+
+      </div>
+      <div class="col-lg-6 mt-lg-0 mt-4">
+        <div class="game-info-thumb detail">
+          <img class="game-card__thumb detail" src="<%= data.image %>" alt="game-info-image">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="view-all-header">
+          <h2 class="title">Other games you might like:</h2>
+          <a href="#0" class="link">All Games</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row mt-50 mb-none-30 justify-content-center">
+
+      <% for( let i=0; i < allGame.rows.length; i++ ) { %>
+        <div class="col-lg-2 col-sm-2 col-md-2 col-xs-6  mb-30">
+          <div class="game-small-card">
+            <div class="game-small-card__thumb detail">
+              <a href="/details/<%= allGame.rows[i].id  %>"><img src="<%= allGame.rows[i].image  %> " alt="image"></a>
+
+            </div>
+            <div class="game-small-card__content">
+              <h6><a href="/details/<%= allGame.rows[i].id  %>">
+                  <%= allGame.rows[i].name %>
+                </a></h6>
+            </div>
+          </div><!-- game-small-card end -->
+        </div>
+        <% } %>
+
+    </div>
+  </div>
+</section>

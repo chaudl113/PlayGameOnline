@@ -1,0 +1,154 @@
+<section class="pt-130 pb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <main class="main">
+                    <div>
+                        <div class="row games-search-wrapper">
+                            <% if (productsTypes) { %>
+                                <div class="col-lg-4">
+                                    <ul>
+                                        <li class="dropdown">
+                                            <input type="checkbox" />
+                                            <a href="#" data-toggle="dropdown">Thể loại</a>
+                                            <ul class="dropdown-menu">
+                                                <% for( let i=0; i < productsTypes.length; i++ ) { %>
+                                                    <li><a href="/category/<%= productsTypes[i].name  %>">
+                                                            <%= productsTypes[i].name %>
+                                                        </a></li>
+
+                                                    <% } %>
+
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <% } %>
+
+                                    <div class="col-lg-8">
+                                        <form action="/search" method="POST" class="games-search-from">
+                                            <input type="search" name="games-search-text" placeholder="Search"
+                                                class="form-control style--two">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </form>
+                                    </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <div class="row mt-50 mb-none-40">
+            <% for (var i=0; i < products.length; i++) { %>
+                <div class="col-md-4 mb-40">
+                    <div class="game-card">
+                        <div class="game-card__thumb">
+
+                            <a href="/details/<%=products[i].id  %> "><img src="<%= products[i].image %>"
+                                    alt="image"></a>
+                        </div>
+                        <div class="game-card__content">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <div class="thumb"><img src="<%= products[i].icon %>" alt="icon">
+                                    </div>
+                                </div>
+                                <div class="col-xs-8">
+                                    <div class="content">
+                                        <h6 class="game-card__title"><a href="game-details.html">
+                                                <%= products[i].name %>
+                                            </a></h6>
+                                        <p>
+                                            <%= products[i].category %> <br /> <a
+                                                    href="/details/<%=products[i].id  %> ">Xem
+                                                    thêm</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="game-card__action">
+                                <p class="mb-2 mt-2">Tải xuống hoặc chơi ngay</p>
+                                <div class="row store">
+                                    <div class="col-xs-4 p-0">
+                                        <img src="images/apple-btn.png" alt="image">
+
+                                    </div>
+                                    <div class="col-xs-4 p-0">
+                                        <img src="images/google-btn.png" alt="image">
+                                    </div>
+                                    <div class="col-xs-4 p-0">
+
+                                        <img src="images/google-btn.png" alt="image">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div><!-- game-card__content end -->
+                    </div><!-- game-card end -->
+                </div>
+                <% } %>
+        </div>
+        <% if (pages> 0) { %>
+            <div class="row mt-4 ">
+                <div class="col-lg-12">
+                    <nav>
+                        <ul class="pagination justify-content-center align-items-center">
+                            <% if (current==1) { %>
+                                <li class="page-item disabled">
+                                    <a class="page-link prev" href="#" tabindex="-1" aria-disabled="true"><i
+                                            class="fa fa-angle-double-left"></i>First</a>
+                                </li>
+                                <% } else { %>
+                                    <li class="page-item ">
+                                        <a class="page-link prev" href="/" tabindex="-1" aria-disabled="true"><i
+                                                class="fa fa-angle-double-left"></i>First</a>
+                                    </li>
+                                    <% } %>
+                                        <% var i=(Number(current)> 5 ? Number(current) - 4 : 1) %>
+                                            <% if (i !==1) { %>
+                                                <li class="disabled"><a>...</a></li>
+                                                <% } %>
+                                                    <% for (; i <=(Number(current) + 4) && i <=pages; i++) { %>
+                                                        <% if (i==current) { %>
+                                                            <li class="page-item active "><a class="page-link">
+                                                                    <%= i %>
+                                                                </a></li>
+                                                            <% } else { %>
+                                                                <li class="page-item"><a class="page-link"
+                                                                        href="page/<%= i %>">
+                                                                        <%= i %>
+                                                                    </a></li>
+                                                                <% } %>
+                                                                    <% if (i==Number(current) + 4 && i < pages) { %>
+                                                                        <li class="disabled"><a>...</a></li>
+                                                                        <% } %>
+
+                                                                            <% } %>
+
+
+                                                                                <% if (current==pages) { %>
+                                                                                    <li class="page-item disabled">
+                                                                                        <a class="page-link next">Last
+                                                                                            <i
+                                                                                                class="fa fa-angle-double-right"></i></a>
+                                                                                    </li>
+                                                                                    <% } else { %>
+                                                                                        <li class="page-item">
+                                                                                            <a class="page-link next"
+                                                                                                href="page/<%= pages %>">Last
+                                                                                                <i
+                                                                                                    class="fa fa-angle-double-right"></i></a>
+                                                                                        </li>
+
+
+                                                                                        <% } %>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <% } %>
+    </div>
+</section>

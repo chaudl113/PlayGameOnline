@@ -1,0 +1,68 @@
+cache:
+  paths:
+    - node_modules/
+
+variables:
+  DOCKER_REPO: registry.gitlab.com/chaudl113
+  IMAGE_BASE_NAME: webgameonlinenodejs
+  IMAGE: $DOCKER_REPO/$IMAGE_BASE_NAME
+  RELEASE_IMAGE: $IMAGE:latest
+stages:
+  - test
+  - build
+  - deploy
+test:
+  stage: test
+  image: node:14.15.0-alpine3.10
+  script:
+    - npm install
+    - npm run tslint
+
+  only:
+    - master
+
+build:
+  stage: build
+  image: docker:19.03.11
+  services:
+    - docker:19.03.11-dind
+  before_script:
+    - apk add bash git nodejs npm
+    - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+    - which docker
+
+  script:
+    - npm i 
+    - npm run build
+    - ls ./dist
+    - docker build -t $IMAGE:v1 -f Dockerfile .
+    - docker tag $IMAGE:v1 $IMAGE:latest
+    - docker push $IMAGE:latest
+  only:
+    - master
+
+deploy_dev:
+  type: deploy
+  image: alpine
+  before_script:
+    - apk update && apk add openssh-client bash
+  # Setup SSH deploy keys
+    - 'which ssh-agent || ( apk add openssh-client )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - chmod 644 ~/.ssh/config  
+  script:
+    - echo "start deploy"
+    - echo "Remove exist docker-compose.yml file"
+    - ssh -p 1985 $SSH_USER@$SSH_SERVER_IP "rm -f @PATH_TO_PROJECT/docker-compose.yml"
+    - echo "SCP new docker-compose.yml file"
+    - scp -P 1985 docker-compose.yml $SSH_USER@$SSH_SERVER_IP:$PATH_TO_PROJECT
+    - scp -r -P 1985 ./sql/ $SSH_USER@$SSH_SERVER_IP:$PATH_TO_PROJECT
+    - ssh -p 1985 $SSH_USER@$SSH_SERVER_IP "cd $PATH_TO_PROJECT && docker-compose down"
+    - ssh -p 1985 $SSH_USER@$SSH_SERVER_IP "docker pull $IMAGE:latest"
+    - ssh -p 1985 $SSH_USER@$SSH_SERVER_IP "cd $PATH_TO_PROJECT &&  docker-compose up -d"
+  only:
+    - master
+
